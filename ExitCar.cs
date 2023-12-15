@@ -5,17 +5,20 @@ using UnityEngine;
 
 public class ExitCar : MonoBehaviour
 {
-    public GameObject Drivable;
-    public GameObject NotDrivable;
+
     public GameObject cameraObject2;
     public GameObject PlayerModl;
     public Transform spawnPosOnCar;
-    public Transform carSpawn;
+    public GameObject Kamerat;
+
+
+    public PrometeoCarController CarMove;
 
 
     void Start()
     {
         cameraObject2 = GameObject.Find("Maincamera");
+        CarMove = GetComponent<PrometeoCarController>();
     }
 
     private void Update()
@@ -23,14 +26,14 @@ public class ExitCar : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             Debug.Log("Ulostaudun");
-           NotDrivable.transform.position = Drivable.transform.position;
-            PlayerModl.transform.position = spawnPosOnCar.transform.position;           
-            NotDrivable.SetActive(true);
-            Drivable.SetActive(false);
+            PlayerModl.transform.position = spawnPosOnCar.transform.position;
             PlayerModl.SetActive(true);
-            //  cameraObject2.SetActive(true);
-           // GameObject instance2 = Instantiate(PlayerModl, spawnPosOnCar.position, Quaternion.identity);
+            CarMove.enabled = false;
+            Kamerat.SetActive(false);
+
+
             
+
         }
     }
 }

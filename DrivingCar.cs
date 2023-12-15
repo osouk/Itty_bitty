@@ -7,25 +7,21 @@ using UnityEngine.SceneManagement;
 
 public class DrivingCar : MonoBehaviour
 {
-    public GameObject Drivable;
-    public GameObject NotDrivable;
-    public PlayerMovement FPSInput;
-    public GameObject cameraObject;
-    public GameObject virtualCameraObject;
-    public GameObject cameraObject2;
+
     public GameObject PlayerModl;
     public Transform spawnPosOnCar;
-    public Transform carSpawn;
+    public GameObject Kamerat;
+
+    public PrometeoCarController CarMove;
 
     public Transform Player;
     public float DistanceLimit = 3;
 
     void Start()
     {
-        FPSInput = GetComponent<PlayerMovement>();
-        cameraObject = GameObject.Find("kamera");
-        virtualCameraObject = GameObject.Find("VirtualCamra");
-        cameraObject2 = GameObject.Find("Maincamera");
+        CarMove = GetComponent<PrometeoCarController>();
+        CarMove.enabled = false;
+        Kamerat.SetActive(false);
     }
 
     void OnMouseOver()
@@ -37,20 +33,14 @@ public class DrivingCar : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    Debug.Log("Elä Töki");
-                    NotDrivable.SetActive(false);
-                    Drivable.SetActive(true);
+                    Debug.Log("Elä Töki");                   
+                    CarMove.enabled = true;
                     PlayerModl.SetActive(false);
                     GameObject instance = Instantiate(PlayerModl, spawnPosOnCar.position, Quaternion.identity);
-                  //  GameObject instance2 = Instantiate(NotDrivable, carSpawn.position, Quaternion.identity);
+                    Kamerat.SetActive(true);                                  
+
                 }
             }
         }
     }
-
-
-
-
-
-
 }
