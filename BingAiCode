@@ -1,0 +1,49 @@
+public class GameManager : MonoBehaviour
+{
+    public static GameManager Instance;
+    public Vector3 PlayerPos;
+    public string LastTriggerUsed;
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+}
+
+public class Trigger : MonoBehaviour
+{
+    public string triggerName;
+    public Vector3 spawnPos;
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            GameManager.Instance.LastTriggerUsed = triggerName;
+            SceneManager.LoadScene("Vent");
+        }
+    }
+}
+
+public class Player : MonoBehaviour
+{
+    void Start()
+    {
+        if (GameManager.Instance.LastTriggerUsed == "LobbyTrigger")
+        {
+            transform.position = SpawnPos1;
+        }
+        else if (GameManager.Instance.LastTriggerUsed == "BedTrigger")
+        {
+            transform.position = SpawnPos2;
+        }
+    }
+}
